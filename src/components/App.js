@@ -26,21 +26,27 @@ function App() {
     const [name, setName] = useState('');
     const [selectedOption, setSelectedOption] = useState(options[0].label);
     const [msg, setMsg] = useState('');
+    const [chbox, setChbox] = useState(true);
     const handleSubmit = (e) => {
         e.preventDefault();
         if (name.trim().length > 0) {
             if (msg.trim().length > 0) {
-                //send
-                console.log(name);
-                console.log(selectedOption);
-                console.log(msg);
+                //send data
+                let data = {
+                    name: name,
+                    option: selectedOption,
+                    msg: msg,
+                    chbox: chbox,
+                };
+                console.log(data);
                 setName('');
                 setMsg('');
+                setChbox(false);
             } else {
                 console.log('brak wiadomości!');
             }
         } else {
-            console.log('brak Imienia!');
+            console.log('brak imienia!');
         }
     };
 
@@ -82,7 +88,13 @@ function App() {
                     value={msg}
                 ></textarea>
                 <label className='send-yourself-copy'>
-                    <input type='checkbox' />
+                    <input
+                        type='checkbox'
+                        onChange={() => {
+                            setChbox(!chbox);
+                        }}
+                        checked={chbox}
+                    />
                     <span className='label-body'>Send a copy to yourself</span>
                 </label>
                 <button className='primary-button' type='submit'>
