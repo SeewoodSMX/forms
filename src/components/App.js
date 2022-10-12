@@ -30,14 +30,11 @@ const Input = (props) => {
         type,
         placeholder,
         id,
-        waringMsg,
+        warningMsg,
         onValueChange,
         value,
         display,
     } = props;
-
-    const [localWarning, setLocalWarning] = useState(false);
-
     return (
         <div>
             <label htmlFor={htmlFor}>{labelText}</label>
@@ -48,12 +45,11 @@ const Input = (props) => {
                 id={id}
                 onChange={(e) => {
                     onValueChange(e.target.value);
-                    setLocalWarning(true);
                 }}
                 value={value}
             />
-            {localWarning && value.trim().length <= 0 && (
-                <Warning text={waringMsg} />
+            {display && value.trim().length <= 0 && (
+                <Warning text={warningMsg} />
             )}
         </div>
     );
@@ -69,7 +65,7 @@ function App() {
     const [selectedOption, setSelectedOption] = useState(options[0].label);
     const [msg, setMsg] = useState('');
     const [chbox, setChbox] = useState(false);
-    const [displayWaring, setDisplayWaring] = useState(false);
+    const [displaywarning, setDisplaywarning] = useState(false);
     const handleSubmit = (e) => {
         e.preventDefault();
         //send data
@@ -85,9 +81,9 @@ function App() {
             setChbox(false);
             setName('');
             setSurname('');
-            setDisplayWaring(false);
+            setDisplaywarning(false);
         } else {
-            setDisplayWaring(true);
+            setDisplaywarning(true);
         }
     };
 
@@ -103,10 +99,10 @@ function App() {
                             type={'text'}
                             placeholder={'Imię'}
                             id={'nameInput'}
-                            waringMsg={'Podaj imie!'}
+                            warningMsg={'Podaj imie!'}
                             onValueChange={setName}
                             value={name}
-                            display={displayWaring}
+                            display={displaywarning}
                         />
                     </div>
                     <div className='three columns'>
@@ -117,10 +113,10 @@ function App() {
                             type={'text'}
                             placeholder={'Nazwisko'}
                             id={'surnameInput'}
-                            waringMsg={'Podaj nazwisko!'}
+                            warningMsg={'Podaj nazwisko!'}
                             onValueChange={setSurname}
                             value={surname}
-                            display={displayWaring}
+                            display={displaywarning}
                         />
                     </div>
                     <div className='six columns'>
